@@ -1,3 +1,5 @@
+import { theme } from '../Common/Theme';
+
 export const App = () => {
   return (
     <div
@@ -10,7 +12,8 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      React homework template
+      React homework template<br/>
+        {theme.mp(1, 2, 3, 'auto')}
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from 'components/App';
+import { ThemeProvider } from 'styled-components';
+import { App } from 'components/App/App';
+import { theme } from 'components/Common/Theme.jsx';
 import './index.css';
 
 ///////////////////
@@ -12,7 +14,7 @@ import './index.css';
 // передав в пропе basename точное название твоего репозитория.
 // Слеши в начале и конце строки обязательны.
 //
-// <BrowserRouter basename="/_____repo_name______/">
+// <BrowserRouter basename="/goit-react-hw-03-image-finder/">
 //   <App />
 // </BrowserRouter>
 //
@@ -20,6 +22,8 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
