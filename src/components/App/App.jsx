@@ -12,6 +12,7 @@ import { Modal } from 'components/Modal/Modal';
 const BASE_URL = 'https://pixabay.com/api/';
 const LS_LAST_QUERY = 'goit_hw_lastQuery';
 const LS_LAST_PAGE = 'goit_hw_lastPage';
+const DEFAULT_SEARCH = 'Red poppy flower';
 
 const initialStateValues = {
   images: [],
@@ -50,9 +51,10 @@ export class App extends Component {
     }
   }
 
-  loadImages = ({ query = 'Red poppy flower', page = 1 }) => {
+  loadImages = () => {
     const newSearchParams = new URLSearchParams();
     const { searchParams } = this.state;
+    const { q: query, page } = searchParams;
 
     for (const param in searchParams) newSearchParams.set(param, searchParams[param]);
 
@@ -67,40 +69,22 @@ export class App extends Component {
     axios
       .get(`${BASE_URL}`, { method: 'get', params: newSearchParams })
       .then(({ data }) => {
-        let retState = { images: [] };
-
-        if (parseInt(data?.totalHits) > 0) {
-          retState = {
-            images: data.hits,
-            totalHits: data.totalHits,
-          };
-        } else {
-          retState = { errorMessage: 'No images loaded' };
-        }
-
-        this.setState({
-          ...retState,
-          searchParams: { ...searchParams, q: query, page },
-        });
+        if (parseInt(data?.totalHits) > 0) this.setState({ images: data.hits, totalHits: data.totalHits });
+        else this.setState({ errorMessage: 'No images found' });
       })
       .catch(error => {
-        console.log(error);
-        this.setState({
-          errorMessage: error?.message ? error.message : 'No images loaded (Unknown error)',
-          searchParams: { ...searchParams, q: query, page },
-        });
+        this.setState({ errorMessage: error?.message ? error.message : 'No images loaded (Unknown error)' });
       })
       .finally(setTimeout(() => this.setState({ isLoading: false }), 200));
   };
 
   onLoadMore = () => {
-    this.loadImages({ page: parseInt(this.state.searchParams.page) + 1 });
+    this.setState(({ searchParams }) => ({ searchParams: { ...searchParams, page: searchParams.page + 1 } }));
   };
 
-  onSearch = (searchQuery = 'Red poppy flower') => {
-    if (searchQuery === '') searchQuery = 'Red poppy flower';
-
-    this.loadImages({ query: searchQuery, page: 1 });
+  onSearch = (searchQuery = DEFAULT_SEARCH) => {
+    if (searchQuery === '') searchQuery = DEFAULT_SEARCH;
+    this.setState({ searchParams: { ...this.state.searchParams, q: searchQuery, page: 1 } });
   };
 
   onToggleModalImage = (url = '') => {
