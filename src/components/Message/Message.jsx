@@ -1,4 +1,5 @@
 import { MessageText, MessageWindow } from './Message.styled';
+import { PropTypes } from 'prop-types';
 
 export const Message = ({ children }) => {
   return (
@@ -6,4 +7,8 @@ export const Message = ({ children }) => {
       <MessageText>{children}</MessageText>
     </MessageWindow>
   );
+};
+
+Message.propTypes = {
+  children: PropTypes.any,
 };
