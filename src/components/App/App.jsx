@@ -75,7 +75,7 @@ export class App extends Component {
       .catch(error => {
         this.setState({ errorMessage: error?.message ? error.message : 'No images loaded (Unknown error)' });
       })
-      .finally(setTimeout(() => this.setState({ isLoading: false }), 200));
+      .finally(this.setState({ isLoading: false }));
   };
 
   onLoadMore = () => {
