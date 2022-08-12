@@ -129,8 +129,8 @@ export class App extends Component {
             <img src={showModalUrl} width="1280" alt="" />
           </Modal>
         )}
-        <Box as="footer" height="60px">
-          &nbsp;
+        <Box as="footer" height="140px" display="flex" justifyContent="flex-end" alignItems="flex-end">
+          <img srv="./pixabay-logo.png" width="640" heigth="124" alt="Images are from Pixabay" />
         </Box>
       </Box>
     );
