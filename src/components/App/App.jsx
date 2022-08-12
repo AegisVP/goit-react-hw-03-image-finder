@@ -41,6 +41,10 @@ export class App extends Component {
       this.setState({
         searchParams: { ...this.state.searchParams, q: lsQuery, page: lsPage },
       });
+    else
+      this.setState({
+        searchParams: { ...this.state.searchParams, q: DEFAULT_SEARCH, page: 1 },
+      });
   }
 
   componentDidUpdate(_, prevState) {
