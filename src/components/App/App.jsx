@@ -81,9 +81,9 @@ export class App extends Component {
     const { images, errorMessage, totalHits, page, isLoading, showModalUrl } = this.state;
 
     return (
-      <Box padding="0">
+      <Box padding="0" height="100vh">
         <Searchbar onSubmit={this.onSearch} />
-        <Box flex="1 0 auto" height="calc(100vh-(80px+140px))">
+        <Box flex="1 0 auto" min-height="calc(100% - 220)">
           {/* Image gallery */}
           {images.length > 0 ? (
             <ImageGallery onToggleModalImage={this.onToggleModalImage} images={images} />
