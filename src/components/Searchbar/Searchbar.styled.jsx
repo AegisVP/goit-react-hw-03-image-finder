@@ -7,8 +7,9 @@ export const SearchBar = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: 0 0 auto;
   background-color: #001188;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15)
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 `;
 
 export const SearchForm = styled.form`
@@ -23,15 +24,13 @@ export const SearchForm = styled.form`
 `;
 
 export const Button = styled.button`
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 48px;
   height: 48px;
   border: 0;
   background-color: transparent;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: center;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
