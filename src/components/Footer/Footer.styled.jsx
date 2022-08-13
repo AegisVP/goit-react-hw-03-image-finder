@@ -7,4 +7,6 @@ export const PageFooter = styled.footer`
   flex: 0 0 auto;
   width: 100%;
   height: 140px;
+  margin: ${p => p.theme.mp(3, 0, 0)};
+  background-color: rgba(0, 17, 136, 0.15);
 `;

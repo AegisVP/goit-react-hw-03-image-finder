@@ -83,7 +83,7 @@ export class App extends Component {
     return (
       <Box padding="0" height="100vh">
         <Searchbar onSubmit={this.onSearch} />
-        <Box flex="1 0 auto" min-height="calc(100% - 220)">
+        <Box flex="1 0 auto" minHeight="calc(100vh - (220px + 40px))">
           {/* Image gallery */}
           {images.length > 0 ? (
             <ImageGallery onToggleModalImage={this.onToggleModalImage} images={images} />
