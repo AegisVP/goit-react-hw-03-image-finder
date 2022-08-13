@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
-import { createSearchParams } from './services';
+import { createSearchParams } from 'Services/services';
 
 import { Box } from 'components/Common/Box.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
