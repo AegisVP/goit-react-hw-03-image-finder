@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import axios from 'axios';
-import { createSearchParams } from 'Services/services';
+import { getImages } from 'Services/services';
 
 import { Box } from 'components/Common/Box.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
@@ -42,22 +41,20 @@ export class App extends Component {
     if (prevState.query !== query || prevState.page !== page) this.loadImages({ query, page });
   }
 
-  loadImages = ({ query, page }) => {
+  loadImages = async ({ query, page }) => {
     localStorage.setItem(LS_LAST_QUERY, query);
     localStorage.setItem(LS_LAST_PAGE, parseInt(page));
 
     this.setState({ images: [], errorMessage: '', isLoading: true, totalHits: 0 });
 
-    axios
-      .get(createSearchParams(query, page))
-      .then(({ data }) => {
-        if (parseInt(data?.totalHits) > 0) this.setState({ images: data.hits, totalHits: data.totalHits });
-        else this.setState({ errorMessage: 'No images found' });
-      })
-      .catch(error => {
-        this.setState({ errorMessage: error?.message ? error.message : 'No images loaded (Unknown error)' });
-      })
-      .finally(this.setState({ isLoading: false }));
+    const { data } = await getImages({ query, page });
+
+    if (data) {
+      if (parseInt(data?.totalHits) > 0) this.setState({ images: data.hits, totalHits: data.totalHits });
+      else this.setState({ errorMessage: 'No images found' });
+    } else this.setState({ errorMessage: 'No images loaded (Error occured)' });
+
+    this.setState({ isLoading: false });
   };
 
   onLoadMore = () => {
@@ -98,6 +95,7 @@ export class App extends Component {
             </Box>
           )}
         </Box>
+
         {/* Loader */}
         {isLoading && <Loader />}
 
@@ -107,6 +105,7 @@ export class App extends Component {
             <img src={showModalUrl} width="1280" alt="" />
           </Modal>
         )}
+
         <Footer />
       </Box>
     );

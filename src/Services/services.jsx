@@ -1,6 +1,8 @@
+import axios from 'axios';
+
 const BASE_URL = 'https://pixabay.com/api/';
 
-export function createSearchParams(query, page) {
+export function createSearchParams({ query, page }) {
   const searchParams = new URLSearchParams({
     key: '28371758-065fc86b54820776754ee6bc7',
     image_type: 'photo',
@@ -14,4 +16,8 @@ export function createSearchParams(query, page) {
   searchParams.set('page', page);
 
   return `${BASE_URL}?${searchParams.toString()}`;
+}
+
+export async function getImages({ query, page }) {
+  return await axios.get(createSearchParams({ query, page })).catch(e => e);
 }

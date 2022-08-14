@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types';
 
 export const ImageGallery = ({ onToggleModalImage, images }) => {
   return (
-    <Gallery className="gallery">
+    <Gallery>
       {images.map(image => (
         <li key={image.id}>
           <ImageGalleryItem
